@@ -6,14 +6,12 @@
  */
 package de.javastream.aibe;
 
-import static de.javastream.aibe.StaticBooksFileds.IMAGE_EXTENSIONS;
 import java.io.File;
 import java.util.List;
-import javax.activation.MimetypesFileTypeMap;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestIbooksHandler {
+public class TestIbooksHandler extends GenericTest {
 
     private final static String FILENAME = "test.ibooks";
     private final static String FOLDER = "target" + File.separator + "test-classes";
@@ -51,9 +49,7 @@ public class TestIbooksHandler {
         List<String> contentList = handler.getImages(outputDir);
         for (String contentFile : contentList) {
             File f = new File(contentFile);
-            String mimetype = new MimetypesFileTypeMap().getContentType(f);
-            String type = mimetype.split("/")[0];
-            Assert.assertTrue("File: " + contentFile, type.equals("image"));
+            Assert.assertTrue(checkIfImage(f));
         }
     }
 }
